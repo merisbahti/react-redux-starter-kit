@@ -3,6 +3,8 @@ const debug = require('debug')('app:server')
 const webpack = require('webpack')
 const webpackConfig = require('../build/webpack.config')
 const config = require('../config')
+const weeks = require('./util.js')
+const moment = require('moment')
 
 const app = express()
 const paths = config.utils_paths
@@ -10,6 +12,12 @@ const paths = config.utils_paths
 // This rewrites all routes requests to the root /index.html file
 // (ignoring file requests). If you want to implement universal
 // rendering, you'll want to remove this middleware.
+app.get('/getCal', (req, res) => {
+  const result = weeks(moment()).map(x => {
+    return {date: x, startHour: '0800', endHour: '1600'}
+  })
+  res.send(result)
+})
 app.use(require('connect-history-api-fallback')())
 
 // ------------------------------------
@@ -20,13 +28,13 @@ if (config.env === 'development') {
 
   debug('Enable webpack dev and HMR middleware')
   app.use(require('webpack-dev-middleware')(compiler, {
-    publicPath  : webpackConfig.output.publicPath,
-    contentBase : paths.client(),
-    hot         : true,
-    quiet       : config.compiler_quiet,
-    noInfo      : config.compiler_quiet,
-    lazy        : false,
-    stats       : config.compiler_stats
+    publicPath: webpackConfig.output.publicPath,
+    contentBase: paths.client(),
+    hot: true,
+    quiet: config.compiler_quiet,
+    noInfo: config.compiler_quiet,
+    lazy: false,
+    stats: config.compiler_stats
   }))
   app.use(require('webpack-hot-middleware')(compiler))
 

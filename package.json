@@ -29,7 +29,7 @@
       }
     },
     "dev": {
-      "command": "nodemon bin/server --ignore dist --ignore coverage --ignore tests --ignore src",
+      "command": "nodemon bin/server --ignore dist --ignore coverage --ignore tests",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
@@ -93,10 +93,12 @@
     "imports-loader": "^0.6.5",
     "ip": "^1.1.2",
     "json-loader": "^0.5.4",
+    "moment": "^2.15.2",
     "node-sass": "^3.7.0",
     "normalize.css": "^4.1.1",
     "postcss-loader": "^0.13.0",
     "react": "^15.0.0",
+    "react-bootstrap": "^0.30.6",
     "react-dom": "^15.0.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.0",

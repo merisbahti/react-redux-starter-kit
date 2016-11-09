@@ -2,16 +2,20 @@
 import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import Home from './Home'
 import CounterRoute from './Counter'
+import CalendarRoute from './Calendar'
+import ZenRoute from './Zen'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
 export const createRoutes = (store) => ({
-  path        : '/',
-  component   : CoreLayout,
-  indexRoute  : Home,
-  childRoutes : [
-    CounterRoute(store)
+  path: '/',
+  component: CoreLayout,
+  indexRoute: Home,
+  childRoutes: [
+    CounterRoute(store),
+    ZenRoute(store),
+    CalendarRoute(store)
   ]
 })
 
