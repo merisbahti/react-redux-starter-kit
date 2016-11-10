@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Row, Panel } from 'react-bootstrap'
+import { Button, Col, Row } from 'react-bootstrap'
 import moment from 'moment'
 
 class Calendar extends React.Component {
@@ -17,13 +17,11 @@ class Calendar extends React.Component {
   }
 
   render () {
-    console.log('rendering')
-    console.log(this.splitIntoWeeks(this.props.entries))
     return (
       <div>
         <p>
           <Button onClick={this.props.fetchCalendarEntries}>
-          update
+          ppdate
           </Button>
         </p>
         <p>
@@ -44,7 +42,7 @@ class Calendar extends React.Component {
                       </h1>
                     </Row>
                     <Row style={{marginTop: 20}}>
-                      { x.startHour} -- { x.endHour}
+                      { x.startHour}  to { x.endHour}
                     </Row>
                   </Col>
                 })
