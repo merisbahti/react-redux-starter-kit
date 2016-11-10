@@ -13,7 +13,10 @@ const paths = config.utils_paths
 // (ignoring file requests). If you want to implement universal
 // rendering, you'll want to remove this middleware.
 app.get('/getCal', (req, res) => {
-  const result = weeks(moment()).map(x => {
+  const date = moment()
+  if (req.query.year) date.year(req.query.year)
+  if (req.query.month) date.month(req.query.month)
+  const result = weeks(date).map(x => {
     return {date: x, startHour: '0800', endHour: '1600'}
   })
   res.send(result)
