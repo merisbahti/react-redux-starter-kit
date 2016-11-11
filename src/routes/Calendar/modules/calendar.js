@@ -11,10 +11,10 @@ export const RECIEVE_CALENDAR_ENTRIES = 'RECIEVE_CALENDAR_ENTRIES'
 // Actions
 // ------------------------------------
 
-export function getCalendarEntries (value = moment()) {
+export function getCalendarEntries (year, month) {
   return {
     type: GET_CALENDAR_ENTRIES,
-    payload: value
+    payload: {year, month}
   }
 }
 
@@ -25,11 +25,10 @@ export function recieveCalendarEntries (entries) {
   }
 }
 
-export const fetchCalendarEntries = (date) => {
+export const fetchCalendarEntries = (year = moment().year(), month = moment().month()) => {
   return (dispatch) => {
-    dispatch(getCalendarEntries(date))
-
-    return fetch('/getCal')
+    dispatch(getCalendarEntries({year, month}))
+    return fetch(`/getCal?year=${year}&month=${month}`)
       .then(data => data.json())
       .then(text => dispatch(recieveCalendarEntries(text)))
   }
@@ -46,7 +45,7 @@ export const actions = {
 
 const ACTION_HANDLERS = {
   [GET_CALENDAR_ENTRIES]: (state, action) => {
-    return {...state, loading: true}
+    return {...state, loading: true, year: action.payload.year, month: action.payload.month}
   },
   [RECIEVE_CALENDAR_ENTRIES]: (state, action) => {
     return {...state, loading: false, entries: action.payload}
@@ -57,7 +56,7 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 
-const initialState = {loading: false, entries: []}
+const initialState = {loading: false, entries: [], year: action.payload.year, month: action.payload.month}
 export default function calendarReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state

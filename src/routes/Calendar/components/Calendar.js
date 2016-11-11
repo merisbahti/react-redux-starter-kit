@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 import moment from 'moment'
+import DatePicker from './DatePicker'
 
 class Calendar extends React.Component {
   constructor (props) {
@@ -27,7 +28,8 @@ class Calendar extends React.Component {
         <p>
           loading is: {this.props.loading ? 'true' : 'false'}
         </p>
-        entries are
+        <DatePicker>
+        </DatePicker>
         {this.splitIntoWeeks(this.props.entries).map(
           (week, i) => {
             return <Row key={i}>
